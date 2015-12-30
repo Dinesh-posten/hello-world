@@ -1,0 +1,37 @@
+public with sharing class accController {
+        
+      public  Account a;
+        public List<Account> list1{get;set;}
+        
+    public accController(ApexPages.StandardController controller) {
+            this.a=(Account)controller.getRecord();
+            List<Account> list1=[SELECT Name FROM Account WHERE id!=null];
+    }
+
+    public pageReference getAcc(){
+    
+      //  List<Account> li=[SELECT Name FROM Account];
+        return null;
+    }
+
+
+
+ACCCONTROLLER
+public class AccListController{
+// ApexPages.StandardSetController must be instantiated
+// for standard list controllers
+public ApexPages.StandardSetController setCon {
+get {
+if(setCon == null) {
+setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
+[SELECT Name,BillingAddress FROM Account]));
+}
+return setCon;
+}
+set;
+}
+// Initialize setCon and return a list of records
+public List<Account> getAccountList() {
+return (List<Account>) setCon.getRecords();
+}
+}
